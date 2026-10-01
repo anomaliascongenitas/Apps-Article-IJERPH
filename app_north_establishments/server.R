@@ -30,12 +30,12 @@ server <- function(input, output,session) {
     aux3 <- aux2 %>%
       left_join(nasc_hosp, by = c("codestab" = "CODESTAB", "ANONASC")) %>%
       select(codestab, nome, ANONASC, n_anomalias = n_anomalias.x, n_nascimentos) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux4 <- aux3 %>%
       group_by(codestab, nome) %>%
       summarise(n_anomalias = sum(n_anomalias), n_nascimentos = sum(n_nascimentos)) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     hosp_mapa_aux <- aux4 %>% 
       left_join(hosp_mapa, by = c("codestab" = "CODESTAB")) %>%
@@ -147,11 +147,11 @@ server <- function(input, output,session) {
     dados_filtrados <- aux5_pop()[selecionados, ]
     
     nasc_vivos <- unique(aux5_pop()$n_nascimentos)
-    prev <- if(nasc_vivos > 0) sum(dados_filtrados$Total, na.rm = TRUE) / nasc_vivos * 1000 else 0
+    prev <- if(nasc_vivos > 0) sum(dados_filtrados$Total, na.rm = TRUE) / nasc_vivos * 10000 else 0
     
     valueBox(
       value = round(prev, 2),
-      subtitle = "Prevalência por 1000 nascidos vivos",
+      subtitle = "Prevalência por 10000 nascidos vivos",
       icon = icon("notes-medical"),
       color = "purple"
     )
@@ -267,7 +267,7 @@ server <- function(input, output,session) {
     
     aux3 <- aux3 %>%
       mutate(across(starts_with("cid"), 
-                    ~ .x / n_nascimentos * 1000))
+                    ~ .x / n_nascimentos * 10000))
     
     cids_nomes_codigo <- c(
       "cid_1"  = "Cardiopatias Congênitas",
@@ -298,7 +298,7 @@ server <- function(input, output,session) {
       "line",
       hcaes(x = ANONASC, y = valor, group = anomalia)
     ) %>%
-      hc_yAxis(title = list(text = "Prevalência por 1000 nascimentos")) %>%
+      hc_yAxis(title = list(text = "Prevalência por 10000 nascimentos")) %>%
       hc_xAxis(title = list(text = "Ano")) %>%
       hc_title(text = "Série histórica prevalência por anomalia", style = list(fontSize = "18px", fontWeight = "bold")) %>%
       hc_tooltip(
@@ -353,7 +353,7 @@ server <- function(input, output,session) {
     aux3 <- aux2 %>%
       left_join(nasc_hosp, by = c("codestab" = "CODESTAB", "ANONASC")) %>%
       select(codestab, nome, ANONASC, n_anomalias = n_anomalias.x, n_nascimentos) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux3 <- aux3 %>% arrange(ANONASC)
     
@@ -419,9 +419,9 @@ server <- function(input, output,session) {
     df_plot <- dados %>%
       mutate(
         sexo_cat = case_when(
-          SEXO %in% c(1, "1") ~ "Masculino",
-          SEXO %in% c(2, "2") ~ "Feminino",
-          SEXO %in% c(0, "0") ~ "Ignorado",
+          SEXO %in% c(1, "1", "M") ~ "Masculino",
+          SEXO %in% c(2, "2", "F") ~ "Feminino",
+          SEXO %in% c(0, "0", "I") ~ "Ignorado",
           is.na(SEXO) ~ "Sem informação",
           TRUE ~ "Sem informação"  
         )
@@ -1120,7 +1120,7 @@ server <- function(input, output,session) {
     aux3 <- aux2 %>%
       left_join(nasc_hosp,by = c("codestab" = "CODESTAB","ANONASC")) %>%
       select(codestab,nome,ANONASC,n_anomalias=n_anomalias.x,n_nascimentos) %>%
-      mutate(prevalencia = n_anomalias/n_nascimentos*1000,
+      mutate(prevalencia = n_anomalias/n_nascimentos*10000,
              ANONASC = as.factor(ANONASC))
     
     
@@ -1179,7 +1179,7 @@ server <- function(input, output,session) {
     aux3 <- aux2 %>%
       left_join(nasc_hosp, by = c("codestab" = "CODESTAB", "ANONASC")) %>%
       select(codestab, nome, ANONASC, n_anomalias = n_anomalias.x, n_nascimentos, CODMUNNASC) %>%
-      mutate(prevalencia = (n_anomalias / n_nascimentos) * 1000,
+      mutate(prevalencia = (n_anomalias / n_nascimentos) * 10000,
              UF_cod = as.numeric(substr(CODMUNNASC, 1, 2)),
              estado = uf_map$estado[match(UF_cod, uf_map$codigo)]
              )
@@ -1254,7 +1254,7 @@ server <- function(input, output,session) {
     df_plot <- aux_anom_sum %>%
       inner_join(aux_nasc_sum, by = c("codestab" = "CODESTAB")) %>%
       mutate(
-        prevalencia = (n_anomalias / n_nascimentos) * 1000,
+        prevalencia = (n_anomalias / n_nascimentos) * 10000,
         UF_cod = as.numeric(substr(cod_mun, 1, 2)),
         estado = uf_map$estado[match(UF_cod, uf_map$codigo)]
       )
@@ -1313,7 +1313,7 @@ server <- function(input, output,session) {
     aux3 <- aux2 %>%
       left_join(nasc_hosp,by = c("codestab" = "CODESTAB","ANONASC")) %>%
       select(codestab,nome,ANONASC,n_anomalias=n_anomalias.x,n_nascimentos) %>%
-      mutate(prevalencia = n_anomalias/n_nascimentos*1000)
+      mutate(prevalencia = n_anomalias/n_nascimentos*10000)
     
     
     names(aux3)[which(names(aux3) == variavel_aux[as.numeric(input$variavel)])] <- "variavel"
@@ -1372,7 +1372,7 @@ server <- function(input, output,session) {
     aux3 <- aux2 %>%
       left_join(aux_nasc_sum ,by = c("codestab" = "CODESTAB")) %>%
       select(codestab,nome,n_anomalias,n_nascimentos) %>%
-      mutate(prevalencia = n_anomalias/n_nascimentos*1000)
+      mutate(prevalencia = n_anomalias/n_nascimentos*10000)
     return(aux3)
   })
 
@@ -1400,7 +1400,7 @@ server <- function(input, output,session) {
   output$box_prevalencia <- renderValueBox({
     valueBox(
       round(sum(dados_reativos()$n_anomalias)/sum(dados_reativos()$n_nascimentos)*10^3,3),
-      "Prevalência ao nascimento por 1000",
+      "Prevalência ao nascimento por 10000",
       icon = icon("notes-medical"),
       color = "purple"
     )
@@ -1427,7 +1427,7 @@ server <- function(input, output,session) {
       left_join(aux2, by = c("codestab" = "CODESTAB")) %>%
       select(codestab, nome, n_nascimentos, all_of(cids_selecionadas)) %>%
       mutate(across(all_of(cids_selecionadas), 
-                    ~ paste0(round(. / n_nascimentos * 1000, 2), " (", ., ")")))
+                    ~ paste0(round(. / n_nascimentos * 10000, 2), " (", ., ")")))
     
     indices <- as.numeric(selecao)
     nomes_amigaveis <- cids_nomes[indices]
@@ -1488,7 +1488,7 @@ server <- function(input, output,session) {
         `Nome Hospital` = nome,
         `Total nascimentos` = total_nascimentos,
         `N° nascimentos com anomalias` = total_anomalias,
-        `Prevalência 1000 nascimentos` = round((total_anomalias / total_nascimentos) * 1000, 2)
+        `Prevalência 10000 nascimentos` = round((total_anomalias / total_nascimentos) * 10000, 2)
       )
     
     return(resultado)
@@ -1546,7 +1546,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -1564,7 +1564,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -1620,7 +1620,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -1639,7 +1639,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     top15 <- aux_final %>%
@@ -1694,7 +1694,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -1713,7 +1713,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -1770,7 +1770,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -1790,7 +1790,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -1846,7 +1846,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -1864,7 +1864,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -1920,7 +1920,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -1938,7 +1938,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -1995,7 +1995,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -2014,7 +2014,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -2070,7 +2070,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -2089,7 +2089,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -2145,7 +2145,7 @@ server <- function(input, output,session) {
     
     aux_final <- aux2 %>%
       left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
+      mutate(prevalencia = n_anomalias / n_nascimentos * 10000)
     
     aux_final <- aux_final %>%
       left_join(
@@ -2164,7 +2164,7 @@ server <- function(input, output,session) {
     } else {
       aux_final <- aux_final %>%
         mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
+      titulo_y <- "Prevalência por 10000 nascimentos"
     }
     
     
@@ -2190,79 +2190,4 @@ server <- function(input, output,session) {
       )
   })
   
-  
-  
-  # outras anomalias
-  output$barras_outras_top10 <- renderHighchart({
-    
-    req(input$ano_anomalias, input$variavel_3, input$uf_filtro2)
-    
-    aux <- anom_hosp %>%
-      filter(UF %in% input$uf_filtro2) %>%
-      filter(ANONASC %in% input$ano_anomalias) %>%
-      select(codestab, nome, ANONASC, cid_10)
-    
-    aux2 <- aux %>%
-      group_by(codestab, nome) %>%
-      summarise(
-        n_anomalias = sum(cid_10, na.rm = TRUE),
-        .groups = "drop"
-      ) %>%
-      mutate(codestab = sprintf("%07d", as.numeric(codestab)))
-    
-    nasc_total <- nasc_hosp %>%
-      filter(ANONASC %in% input$ano_anomalias) %>%
-      group_by(CODESTAB) %>%
-      summarise(
-        n_nascimentos = sum(n_nascimentos, na.rm = TRUE),
-        .groups = "drop"
-      ) %>%
-      mutate(CODESTAB = sprintf("%07d", as.numeric(CODESTAB)))
-    
-    aux_final <- aux2 %>%
-      left_join(nasc_total, by = c("codestab" = "CODESTAB")) %>%
-      mutate(prevalencia = n_anomalias / n_nascimentos * 1000)
-    
-    aux_final <- aux_final %>%
-      left_join(
-        hosp_mapa %>%
-          mutate(CODESTAB_c = sprintf("%07d", as.numeric(CODESTAB))) %>%
-          select(CODESTAB_c, UF),
-        by = c("codestab" = "CODESTAB_c")
-      )%>%
-      mutate(estado = uf_map$estado[match(as.numeric(UF), uf_map$codigo)])
-    
-    
-    if(input$variavel_3 == 1){
-      aux_final <- aux_final %>%
-        mutate(valor = n_anomalias)
-      titulo_y <- "Número de casos"
-    } else {
-      aux_final <- aux_final %>%
-        mutate(valor = prevalencia)
-      titulo_y <- "Prevalência por 1000 nascimentos"
-    }
-    
-    
-    top15 <- aux_final %>%
-      arrange(desc(valor)) %>%
-      slice_head(n = 20)
-    
-    hchart(top15, "bar", hcaes(x = nome, y = round(valor, 2), estado = estado)) %>%
-      hc_colors("darkblue") %>%
-      hc_title(text = paste("20 hospitais com maior ",variavel2[as.numeric(input$variavel_3)], "Outras anomalias")) %>%
-      hc_xAxis(title = list(text = "")) %>%
-      hc_yAxis(title = list(text = variavel2[as.numeric(input$variavel_3)])) %>%
-      hc_plotOptions(bar = list(dataLabels = list(enabled = TRUE))) %>%
-      hc_tooltip(
-        useHTML = TRUE,
-        formatter = JS(paste0(
-          "function() {",
-          "return  this.point.nome + '<br>' +",
-          "'<b>Estado:</b> ' + this.point.options.estado + '<br/>' +",
-          "'<b>", variavel2[as.numeric(input$variavel_3)], ":</b> ' + this.point.y;",
-          "}"
-        ))
-      )
-  })
 }

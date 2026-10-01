@@ -36,8 +36,8 @@ eval_parse <- function(x){
 }
 
 
-variavel <- c("nº de nascimentos com anomalia" ,"prevalência por 1000 nascimentos" ,"nº nascimentos")
-variavel2 <- c("nº de nascimentos com anomalia" ,"prevalência por 1000 nascimentos" ,"nº nascimentos")
+variavel <- c("nº de nascimentos com anomalia" ,"prevalência por 10000 nascimentos" ,"nº nascimentos")
+variavel2 <- c("nº de nascimentos com anomalia" ,"prevalência por 10000 nascimentos" ,"nº nascimentos")
 variavel_aux <- c("n_anomalias" ,"prevalencia" ,"n_nascimentos")
 
 anom_hosp <- utils::read.csv("anom_hosp_selec.csv", encoding="UTF-8")
@@ -83,8 +83,7 @@ cids_values4 <- c("Card_Cong",
                   "hipospadia",                                                           
                   "Microcefalia",                                                         
                   "Sexo_indef",                                                      
-                  "Sindrome_Down",
-                  "Outras_anomalias")  
+                  "Sindrome_Down")  
 
 cids_nomes <- c("Cardiopatias Congênitas",                                              
                   "Parede Abdominal",                                         
@@ -94,8 +93,7 @@ cids_nomes <- c("Cardiopatias Congênitas",
                   "Hipospadia",                                                           
                   "Microcefalia",                                                         
                   "Sexo Indefinido",                                                      
-                  "Sindrome Down",
-                  "Outras Anomalias")  
+                  "Sindrome Down")  
 
 uf_map <- data.frame(
   codigo = c(11,12,13,14,15,16,17),
