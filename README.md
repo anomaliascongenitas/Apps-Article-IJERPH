@@ -1,6 +1,6 @@
-# Apps Article Spatial Modeling of Congenital Anomalies in Brazil Reveals Regional Inequalities
+# Apps Article Interactive Mapping and Visualization of Congenital Anomaly Reporting in Brazil Using R Shiny 
 
-This repository provides the source code and datasets used in the development of three interactive applications for analyzing congenital anomalies based on data from the Brazilian Live Birth Information System (SINASC). Developed in R using the Shiny package, the applications integrate data processing, statistical analysis, and interactive visualization. They are intended to support public health surveillance by facilitating the exploration of epidemiological indicators, maternal and neonatal characteristics, and regional disparities.
+This repository provides the source code and datasets used in the development of three interactive applications for analyzing congenital anomalies based on data from the Brazilian Live Birth Information System (SINASC). Developed in R using the Shiny package, the applications integrate data processing, descriptive analysis, and interactive visualization. They are intended to support public health surveillance by facilitating the exploration of epidemiological indicators, maternal and neonatal characteristics, and regional disparities.
 
 ## Repository Structure
 This repository is organized into three main folders, each corresponding to a specific interactive application:
