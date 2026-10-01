@@ -35,7 +35,7 @@ aba_previsao <- tabItem(
                        "2018","2019", "2020", "2021", "2022", "2023", "2024", "2025"), multiple = TRUE
         ),
         shiny::selectInput(inputId = "variavel_3",label = "Selecione a variável que terá seus dados ilustrados no gráfico abaixo:",
-                           choices = c("nº de nascimentos com anomalia" = 1,"prevalência por 1000 nascimentos" =2),
+                           choices = c("nº de nascimentos com anomalia" = 1,"prevalência por 10000 nascimentos" =2),
                            selected = 2),
         #shiny::textOutput("teste"),
         selectInput("uf_filtro2", "Selecione o(s) Estado(s):",
@@ -124,14 +124,6 @@ aba_previsao <- tabItem(
         title = "Síndrome de Down", 
         width = 12, status = "primary", solidHeader = TRUE,
         highchartOutput("barras_down_top10"),
-        collapsible = TRUE
-      )
-    ),
-    fluidRow(
-      box(
-        title = "Outras anomalias", 
-        width = 12, status = "primary", solidHeader = TRUE,
-        highchartOutput("barras_outras_top10"),
         collapsible = TRUE
       )
     ),
