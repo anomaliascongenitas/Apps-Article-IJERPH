@@ -42,7 +42,7 @@ aba_mapa_uf = tabItem(
                            "mapa_uf_cid",
                            selected = 1,
                            choiceNames = cids_values2,
-                           choiceValues = 1:10
+                           choiceValues = 1:9
         ),
         
         h3("Escolha o(s) ano(s) a ser(em) considerado(s):"),

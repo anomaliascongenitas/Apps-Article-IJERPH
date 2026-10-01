@@ -34,7 +34,7 @@ aba_serie_munic <- tabItem(
                            "serie_munic_cid",
                            selected = 1,
                            choiceNames = cids_values2,
-                           choiceValues = 1:10
+                           choiceValues = 1:9
         ),
         
         

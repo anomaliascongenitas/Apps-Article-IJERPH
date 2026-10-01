@@ -33,7 +33,7 @@ aba_serie_uf <- tabItem(
                            "serie_uf_cid",
                            selected = 1,
                            choiceNames = cids_values2,
-                           choiceValues = 1:10
+                           choiceValues = 1:9
         ),
         
         
