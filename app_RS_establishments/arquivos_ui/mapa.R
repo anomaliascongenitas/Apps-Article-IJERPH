@@ -28,8 +28,7 @@ aba_mapa <- tabItem(
                style =  "color: #b30000; font-weight: bold; font-size: 18px; margin-left: 15px;")
     ),
     titlePanel(
-      h1("Mapa das localizações dos hospitais que participam 
-      da vigilância ativa")
+      h1("Mapa das localizações dos hospitais com mais de 10 mil nascimentos")
     ),
     br(),
     fluidRow(
@@ -40,7 +39,7 @@ aba_mapa <- tabItem(
           "Escolha o(s) grupo(s) de CID(s):",
           selected = 1:9,
           choiceNames = cids_values2,
-          choiceValues = 1:10
+          choiceValues = 1:9
         ),
         selectInput(
           "ano_grafico_mapa",
@@ -117,7 +116,7 @@ aba_mapa <- tabItem(
     fluidRow(
       box(
         title = h2(p("Tabela com todos hospitais considerando as anomalias e os anos e selecionados.")),
-        h4(div("OBS: O primeiro valor indica a prevalência por 1.000 nascidos vivos com AC,
+        h4(div("OBS: O primeiro valor indica a prevalência por 10000 nascidos vivos com AC,
         o valor entre parênteses é o número de nascidos vivos com AC."#, 
               #  style = "color:red"
                )),

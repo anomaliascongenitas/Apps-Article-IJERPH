@@ -36,8 +36,8 @@ eval_parse <- function(x){
 }
 
 
-variavel <- c("nº de nascimentos com anomalia" ,"prevalência por 1000 nascimentos" ,"nº nascimentos")
-variavel2 <- c("nº de nascimentos com anomalia" ,"prevalência por 1000 nascimentos" ,"nº nascimentos")
+variavel <- c("nº de nascimentos com anomalia" ,"prevalência por 10000 nascimentos" ,"nº nascimentos")
+variavel2 <- c("nº de nascimentos com anomalia" ,"prevalência por 10000 nascimentos" ,"nº nascimentos")
 variavel_aux <- c("n_anomalias" ,"prevalencia" ,"n_nascimentos")
 
 anom_hosp <- utils::read.csv("anom_hosp_selec.csv", encoding="UTF-8")
@@ -74,22 +74,30 @@ base_cnes <- utils::read.csv("base_cnes.csv", encoding="UTF-8")
 
 lista_hosp_analise <- unique(anom_hosp$nome)
 
-x = base_cnes[1,14]
-gambiarra = function(x){
-  if(x< -1000){
-    y = as.numeric(str_c(substr(x,1,3),".",substr(x,4,1000000L)))
-    return(y)
-  } else {
-    x
+corrigir_coordenada =  function(x, limite) {
+    
+    if (is.na(x)) {
+      return(NA_real_)
+    }
+    
+    while (abs(x) > limite) {
+      x <- x / 10
+    }
+    
+    return(x)
   }
-}
-
-for (j in 14:15) {
-  for (i in 1:nrow(base_cnes)) {
-    base_cnes[i,j] = gambiarra(base_cnes[i,j])
-  }
-}
-
+  
+  base_cnes$LATITUDE <- sapply(
+    base_cnes$LATITUDE,
+    corrigir_coordenada,
+    limite = 90
+  )
+  
+  base_cnes$LONGITUDE <- sapply(
+    base_cnes$LONGITUDE,
+    corrigir_coordenada,
+    limite = 180
+  )
 
 
 
@@ -134,8 +142,7 @@ cids_values4 <- c("Card_Cong",
                   "Hipospadia",                                                           
                   "Microcefalia",                                                         
                   "Sexo_indef",                                                      
-                  "Sindrome_Down",
-                  "Outras_anomalias")  
+                  "Sindrome_Down")  
 
 cids_nomes <- c("Cardiopatias Congênitas",                                              
                 "Parede Abdominal",                                         
@@ -145,8 +152,7 @@ cids_nomes <- c("Cardiopatias Congênitas",
                 "Hipospadia",                                                           
                 "Microcefalia",                                                         
                 "Sexo Indefinido",                                                      
-                "Sindrome Down",
-                "Outras Anomalias")  
+                "Sindrome Down")  
 
 
 rowCallback <- c(

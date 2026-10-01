@@ -13,8 +13,7 @@ cids_values <- c("Cardiopatias congênitas",
                  "Hipospadia",                                                           
                  "Microcefalia",                                                         
                  "Sexo indefinido",                                                      
-                 "Síndrome de Down",
-                 "Outras Anomalias")   
+                 "Síndrome de Down")   
 
 cids_values2 <- c("Cardiopatias congênitas – CID Q20, Q21, Q22, Q23, Q24, Q25, Q26, Q27, Q28",
                   "Defeitos de parede abdominal – CID Q79.2 Q79.3",
@@ -24,15 +23,14 @@ cids_values2 <- c("Cardiopatias congênitas – CID Q20, Q21, Q22, Q23, Q24, Q25
                   "Hipospadia - CID  Q54",
                   "Microcefalia – CID Q02",
                   "Sexo indefinido CID Q56",
-                  "Síndrome de Down – CID Q90",
-                  "Outras Anomalias")
+                  "Síndrome de Down – CID Q90")
 
 
 header <- shinydashboardPlus::dashboardHeader(
   #enable_rightsidebar = T,
   controlbarIcon = shiny::icon("gears"),
   title = tagList(
-    span(class = "logo-lg", str_c("Análise dos Hospitais selecionados para vigilância ativa no RS")), 
+    span(class = "logo-lg", str_c("Análise dos Hospitais do RS")), 
     icon = icon("tachometer-alt")),
   titleWidth = 650
 )
@@ -41,7 +39,7 @@ rightsidebar <- dashboardControlbar(disable = TRUE)
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
-    menuItem("Mapa e análise por hospital",tabName = "aba_mapa",icon = icon("globe-americas",lib = "font-awesome")),
+    menuItem("Mapa e informações por hospital",tabName = "aba_mapa",icon = icon("globe-americas",lib = "font-awesome")),
     menuItem("Comparação dos hospitais",tabName = "aba_hospitais",icon = icon("file-medical-alt")),
     menuItem("Comparação por grupos de anomalias",tabName = "aba_anomalias",icon = icon("chart-line"))
   ),

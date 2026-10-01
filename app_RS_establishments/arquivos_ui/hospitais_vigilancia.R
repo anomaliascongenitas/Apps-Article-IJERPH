@@ -22,8 +22,7 @@ aba_hospitais <- tabItem(
                  0.75)
     ),
     titlePanel(
-      "Estatísticas descritivas dos hospitais que participam 
-      da vigilância ativa."
+      "Estatísticas descritivas dos hospitais com mais de 10 mil nascimentos."
     ),
     br(),
     fluidRow(
@@ -35,11 +34,11 @@ aba_hospitais <- tabItem(
           "Escolha o(s) grupo(s) de CID(s):",
           selected = 1:9,
           choiceNames = cids_values2,
-          choiceValues = 1:10
+          choiceValues = 1:9
         ),
 
         shiny::selectInput(inputId = "variavel",label = "Selecione a variável que terá seus dados ilustrados no gráfico abaixo:",
-                           choices = c("nº de nascimentos com anomalia" = 1,"prevalência por 1000 nascimentos" =2,"nº nascimentos" =3), selected = 2),
+                           choices = c("nº de nascimentos com anomalia" = 1,"prevalência por 10000 nascimentos" =2,"nº nascimentos" =3), selected = 2),
         selectInput(
           "ano_hospitais",
           label = "Escolha o(s) Ano(s):",
