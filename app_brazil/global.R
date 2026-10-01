@@ -69,23 +69,22 @@ limites_prevalencia <- 100*1.2
 cids_values <- c("Cardiopatias congênitas",                                              
                  "Defeitos de parede abdominal",                                         
                  "Defeitos de redução de membros/ pé torto/ artrogripose / polidactilia",
-                 "Defeitos de Tubo Neural",                                              
+                 "Defeitos de tubo Neural",                                              
                  "Fendas orais",                                                         
                  "hipospadia",                                                           
                  "Microcefalia",                                                         
                  "Sexo indefinido",                                                      
-                 "Síndrome de Down","Outras")   
+                 "Síndrome de Down")   
 
 cids_values2 <- c("Cardiopatias congênitas – CID Q20, Q21, Q22, Q23, Q24, Q25, Q26, Q27, Q28",
                   "Defeitos de parede abdominal – CID Q79.2 Q79.3",
                   "Defeitos de redução de membros/ pé torto/ artrogripose / polidactilia – CID Q66, Q69, Q71, Q72, Q73 e Q74.3",
-                  "Defeitos de Tubo Neural – CID Q00.0, Q00.1, Q00.2, Q01 e Q05",
+                  "Defeitos de tubo Neural – CID Q00.0, Q00.1, Q00.2, Q01 e Q05",
                   "Fendas orais – CID Q35, Q36 e Q37",
-                  "hipospadia - CID  Q54",
+                  "Hipospadia - CID  Q54",
                   "Microcefalia – CID Q02",
                   "Sexo indefinido CID Q56",
-                  "Síndrome de Down – CID Q90",
-                  "Outras")
+                  "Síndrome de Down – CID Q90")
 
 
 
